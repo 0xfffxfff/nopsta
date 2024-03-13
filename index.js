@@ -26,7 +26,21 @@ app.get("/a/petarp/versions", (_, res) =>
     ],
   })
 );
-
+app.get("/a/petarp/:tokenId", async (req, res) => {
+  // TODO: replace with on-chain calls
+  const response = await fetch('https://nopsta.com/a/petarp/' + req.params.tokenId);
+  const data = await response.json();
+  return res.json(data);
+});
+app.get("/a/petarp/:tokenId/video", async (req, res) => {
+  return res.json({
+    "value": {
+      "v":0,
+      "status":"Generated",
+      "path":"\/petarp\/videos\/petarp-" + req.params.tokenId.padStart(3, "0") + ".mp4"
+    }
+  });
+});
 app.get("/a/petarp/custom-bytes", (_, res) =>
   res.json(require("./mock").CUSTOM_BYTES_RESPONSE_STUB)
 );
