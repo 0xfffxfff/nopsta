@@ -19,3 +19,4 @@ replace_text "$root_directory" "https://cdn.jsdelivr.net/npm/web3@latest/dist/we
 replace_text "$root_directory" "https://nopsta.com/icon.png" "/icon.png"
 replace_text "$root_directory" "https://nopsta.com/oraand/t/" "/oraand/t/"
 replace_text "$root_directory" "https://nopsta.com/a/petarp/" "/a/petarp/"
+replace_text "$root_directory" "https://nopsta.com/petarp/images/" "/petarp/images/"
