@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="https://nopsta.com/icon.png">
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+  
+</head>
+
+<body>
+  <div id="page-content" style="display: none">
+    <div id="header">
+      <div id="header-content">
+        <div id="header-items">
+          <div id="menu-items">
+            <a class="menu-link" href="/">Home</a>
+            <div class="menu-link-separator">|</div>
+            <a class="menu-link" href="/petarp/about">About</a>
+            <div class="menu-link-separator">|</div>
+            <a class="menu-link" href="/petarp/mint">Mint</a>
+            <div class="menu-link-separator">|</div>
+            <a class="external-link" target="_blank" href="https://etherscan.io/address/0x7d6433b77285cfdb2f91179f73588210fc53d3d8#readContract">Contract</a>
+            <div class="menu-link-separator">|</div>
+            <a class="external-link" target="_blank" href="https://twitter.com/nopsta_">Twitter</a>
+          </div>
+
+          <div>
+            <div id="page-title-holder">
+              <h1 id="page-title">PETARP </h1>
+              <div id="petarp-nav-holder">
+                <a href="#" id="petarp-prev" class="petarp-nav"><img src="/images/prev.svg"/></a>
+                <a href="#" id="petarp-next" class="petarp-nav"><img src="/images/next.svg"/></a>
+              </div>
+            </div>
+          </div>
+
+          <div id="petarp-params"></div>
+
+        </div>
+
+        <div class="connect-holder">
+          <button id="connect">Connect</button>
+          <button id="switch-to-mainnet" style="display: none">Switch to Mainnet</button>
+          
+          <div id="connect-status"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div id="index" class="content">
+
+      <div class="home-section home-content">
+        Generative Audio and Visuals, runnable on Commodore 64 computers and emulators.
+        Parameters are set at time of minting.
+      </div>
+
+
+      <div class="home-section">
+        <h2>C64 executables generated on chain</h2>
+      </div>
+
+      <div class="home-section home-content">
+        <p>
+          The 2048 byte Commodore 64 executable PRG for each token can be obtained by executing the contract function 'getTokenPRG'. 
+          The executable PRGs should be available for as long as the Ethereum blockchain exists and runnable for as long as Commodore 64 computers and emulators are available.
+        </p>
+      </div>
+
+      
+
+      <div class="home-section home-about-buttons">
+        <a class="button" id="read-more-button" href="/petarp/about">Read More</a>
+        <a class="external-link button" target="_blank" href="https://etherscan.io/address/0x7d6433b77285cfdb2f91179f73588210fc53d3d8#readContract">View Contract</a>
+        <a href="https://opensea.io/collection/petarp" target="_blank" class="button">OpenSea</a>
+      </div>
+      
+
+      <div class="home-section">
+        <div>
+          <h2>Minted: <div class="petarp-number-minted">...</div> out of 64</h2>
+        </div>
+      </div>
+
+      <div class="home-section" id="catalog">
+
+        <div id="petarp-catalog" class="petarp-catalog"></div>
+      </div>
+
+    </div>
+
+
+    <div id="petarp" class="content">
+      <div>
+        <div id="petarp-page-info"></div>
+      </div>
+
+      <div class="petarp-canvas-info">
+        <div id="petarp-canvas-holder">
+          <div class="petarp-holder">
+            <canvas id="petarp-canvas"></canvas>
+
+            <div id="petarp-loading-overlay">
+              <div id="petarp-loading-message">
+              </div>
+            </div>
+
+
+            <div id="petarp-start-overlay">
+              <div style="cursor: pointer">
+                Click to start
+              </div>
+            </div>
+
+            <div id="petarp-controls">
+              <img id="petarp-volume-up-icon" class="petarp-volume-icon noselect" src="/images/volume_up.svg"/>
+              <img id="petarp-volume-down-icon" class="petarp-volume-icon noselect" src="/images/volume_down.svg"/>
+              <img id="petarp-volume-off-icon" class="petarp-volume-icon noselect" src="/images/volume_off.svg"/>
+
+              <div id="petarp-volume-bar-holder" class="noselect">
+                <div id="petarp-volume-bar" class="noselect">
+                  <div id="petarp-volume-bar-value" class="noselect"></div>
+                  <div id="petarp-volume-value" class="noselect"></div>
+                </div>
+              </div>
+
+<!--
+
+              <div id="petarp-tone-bar-holder" class="noselect">
+                <div id="petarp-tone-label">TONE</div>
+                <div id="petarp-tone-bar" class="noselect">
+                  <div id="petarp-tone-bar-value" class="noselect"></div>
+                  <div id="petarp-tone-value" class="noselect"></div>
+                </div>
+              </div>
+
+              <div id="petarp-reverb-bar-holder" class="noselect">
+                <div id="petarp-reverb-label">REVERB</div>
+                <div id="petarp-reverb-bar" class="noselect">
+                  <div id="petarp-reverb-bar-value" class="noselect"></div>
+                  <div id="petarp-reverb-value" class="noselect"></div>
+                </div>
+              </div>
+-->
+
+              <img id="petarp-fullscreen-icon" class="noselect" src="/images/fullscreen.svg"/>
+              <img id="petarp-fullscreen-exit-icon" class="noselect" src="/images/fullscreen_exit.svg"/>
+            </div>
+          </div>
+
+        </div>
+
+        <div id="petarp-info">
+          <div id="petarp-ownership">
+            <div id="petarp-ownership-status"></div>
+
+            <div id="petarp-date-details">
+              <div id="petarp-mint-date"></div>
+
+              <div id="petarp-last-transfer">
+                <div id="petarp-since-last-transfer"></div>
+              </div>
+            </div>
+
+
+            <div class="petarp-links">
+              <button id="downloadPrg">Download PRG</button>
+              <div id="videoLink"></div>
+              <button id="petarp-gallery-button">Gallery</button>
+              <div id="petarp-opensea"></div>
+            </div>
+
+            <div class="petarp-info">
+
+              <!--
+              <div>
+                The PRG can be run on Commodore 64 computers and emulators such as&nbsp;<a href="https://vice-emu.sourceforge.io/" target="_blank">VICE</a>.
+                It can be downloaded from this page or by calling the 'getTokenPRG' function in the PETARP contract.
+              </div>
+            -->
+
+              <div id="petarp-video-info">
+                The linked video is a 30 second .mp4 excerpt with a volume fade at the end
+              </div>
+            </div>
+          </div>
+
+
+          <div class="petarp-section-settings" id="petarp-section-settings">
+            <h3>Settings / Controls</h3>
+            
+            <div class="petarp-settings">
+              <div class="petarp-settings-headings">
+                <div class="petarp-setting">&nbsp;</div>
+                <div class="petarp-setting-key">Key</div>
+                <div class="petarp-setting-value">Value</div>
+              </div>
+              <div class="petarp-settings-row">
+                <div class="petarp-setting">Filter Routing</div>
+                <div class="petarp-setting-key">1 - 3</div>
+                <div class="petarp-setting-value" id="petarp-setting-filter-routing">
+                </div>
+              </div>
+              <div class="petarp-settings-row">
+                <div class="petarp-setting">Filter Mode</div>
+                <div class="petarp-setting-key">4</div>
+                <div class="petarp-setting-value" id="petarp-setting-filter-mode">up</div>
+              </div>
+              <div class="petarp-settings-row">
+                <div class="petarp-setting">Filter Cutoff Hi Byte</div>
+                <div class="petarp-setting-key">5 - 6</div>
+                <div class="petarp-setting-value" id="petarp-setting-filter-value"></div>
+              </div>
+              <div class="petarp-settings-row">
+                <div class="petarp-setting" id="petarp-setting-color-change-label">Color Effect</div>
+                <div class="petarp-setting-key" id="petarp-setting-color-change-key">7</div>
+                <div class="petarp-setting-value" id="petarp-setting-color-change"></div>
+              </div>
+              <div class="petarp-settings-row">
+                <div class="petarp-setting" id="petarp-setting-detune-mode-label">Detune Mode</div>
+                <div class="petarp-setting-key"  id="petarp-setting-detune-mode-key">8</div>
+                <div class="petarp-setting-value" id="petarp-setting-detune-mode"></div>
+              </div>
+              <div class="petarp-settings-row">
+                <div class="petarp-setting"  id="petarp-setting-root-note-label">Root Note Change</div>
+                <div class="petarp-setting-key"   id="petarp-setting-root-note-key">9</div>
+                <div class="petarp-setting-value" id="petarp-setting-root-note"></div>
+              </div>
+              <div class="petarp-settings-row">
+                <div class="petarp-setting" id="petarp-setting-journey-label">Journey Mode</div>
+                <div class="petarp-setting-key" id="petarp-setting-journey-key">locked</div>
+                <div class="petarp-setting-value" id="petarp-setting-journey"></div>
+              </div>
+              <div class="petarp-settings-row">
+                <div class="petarp-setting petarp-unlock-criteria" id="petarp-setting-custombytes-label">Custom Bytes</div>
+                <div class="petarp-setting-key" id="petarp-setting-custombytes-key">&nbsp;</div>
+                <div class="petarp-setting-value petarp-unlock-criteria" id="petarp-setting-custombytes">
+                  <button id="petarp-edit-bytes" style="display: none">Edit Bytes</button> One byte in the PRG can be set per 64 days after transfer, up to 8 bytes
+                </div>
+              </div>
+
+            </div>
+
+            <div id="petarp-save-settings-message"></div>
+
+            <div class="petarp-save-settings-row">
+              <button id="petarp-save-settings">Save Settings</button>
+              <div id="save-settings-status"></div>
+            </div>
+
+            <!--
+            <button id="petarp-request-check">Request Check</button>
+            -->
+          </div>
+
+          <div id="petarp-byte-editor-holder" style="display: none">
+            <div class="petarp-byte-editor-header">
+              <h3>Byte Editor</h3>
+              <div id="petarp-bytes-editor-owner"></div>
+              <div class="petarp-bytes-editor-instructions">
+                Click a slot to select it and then a byte to set it. Nothing is saved until you click 'Save Bytes'.
+              </div>
+            </div>
+            <!--
+            <div>
+              <a id="petarp-close-edit-bytes" href="#">&lt; back</a>
+            </div>
+            -->
+            <div class="petarp-bytes-holder">
+              
+
+              <div>
+                <div class="petarp-byte-editor-step">
+                  White bytes can be changed.
+                </div>
+                <div style="position: relative">
+                  <canvas id="petarp-byte-editor"></canvas>
+                  <input type="text" spellcheck="false" maxlength="2" id="petarp-byte-value" type="text"/>
+                </div>
+              </div>
+
+              <div class="petarp-bytes-table-holder">
+                  <div class="petarp-byte-editor-step" style="width: 260px">
+                    One slot per 64 days after last transfer.
+                  </div>
+                  <table class="petarp-bytes-table">
+                  <tr>
+                    <th>Slot</th>
+                    <th>Address</th>
+                    <th>Value</th>
+                    <th class=" petarp-byte-remove-cell">&nbsp;</th>
+                  </tr>
+                  <tr>
+                    <td class="petarp-byte-slot-row petarp-byte-slot-row-0"><label class="petarp-byte-slot-label" id="petarp-byte-slot-label-0"><input type="radio" name="petarp-byte-slot" id="petarp-byte-slot-0" class="petarp-byte-slot" checked="checked" value="0"/>1</label></td>
+                    <td class="petarp-byte-slot-row petarp-byte-slot-row-0"><div class="petarp-byte-address petarp-byte-link" data-index="0" id="petarp-byte-address-0"></div></td>
+                    <td class="petarp-byte-slot-row petarp-byte-slot-row-0"><div class="petarp-byte-value petarp-byte-link" data-index="0" id="petarp-byte-value-0"></div></td>
+                    <td class="petarp-byte-slot-row petarp-byte-slot-row-0 petarp-byte-remove-cell"><a href="#" class="petarp-byte-remove" id="petarp-byte-remove-0" data-index="0"></a></td>
+                  </tr>
+                  <tr>
+                    <td class="petarp-byte-slot-row petarp-byte-slot-row-1"><label class="petarp-byte-slot-label" id="petarp-byte-slot-label-1"><input type="radio" name="petarp-byte-slot" id="petarp-byte-slot-1" class="petarp-byte-slot" value="1"/>2</label></td>
+                    <td class="petarp-byte-slot-row petarp-byte-slot-row-1"><div class="petarp-byte-address petarp-byte-link" data-index="1" id="petarp-byte-address-1"></div></td>
+                    <td class="petarp-byte-slot-row petarp-byte-slot-row-1"><div class="petarp-byte-value petarp-byte-link" data-index="1" id="petarp-byte-value-1"></div></td>
+                    <td class="petarp-byte-slot-row petarp-byte-slot-row-1 petarp-byte-remove-cell"><a href="#" class="petarp-byte-remove" id="petarp-byte-remove-1" data-index="1"></a></td>
+                  </tr>
+                  <tr>
+                    <td class="petarp-byte-slot-row petarp-byte-slot-row-2"><label class="petarp-byte-slot-label" id="petarp-byte-slot-label-2"><input type="radio" name="petarp-byte-slot" id="petarp-byte-slot-2" class="petarp-byte-slot" value="2"/>3</label></td>
+                    <td class="petarp-byte-slot-row petarp-byte-slot-row-2"><div class="petarp-byte-address petarp-byte-link" data-index="2" id="petarp-byte-address-2"></div></td>
+                    <td class="petarp-byte-slot-row petarp-byte-slot-row-2"><div class="petarp-byte-value petarp-byte-link" data-index="2" id="petarp-byte-value-2"></div></td>
+                    <td class="petarp-byte-slot-row petarp-byte-slot-row-2 petarp-byte-remove-cell"><a href="#" class="petarp-byte-remove" id="petarp-byte-remove-2" data-index="2"></a></td>
+                  </tr>
+                  <tr>
+                    <td class="petarp-byte-slot-row petarp-byte-slot-row-3"><label class="petarp-byte-slot-label" id="petarp-byte-slot-label-3"><input type="radio" name="petarp-byte-slot" id="petarp-byte-slot-3" class="petarp-byte-slot" value="3"/>4</label></td>
+                    <td class="petarp-byte-slot-row petarp-byte-slot-row-3"><div class="petarp-byte-address petarp-byte-link" data-index="3" id="petarp-byte-address-3"></div></td>
+                    <td class="petarp-byte-slot-row petarp-byte-slot-row-3"><div class="petarp-byte-value petarp-byte-link" data-index="3" id="petarp-byte-value-3"></div></td>
+                    <td class="petarp-byte-slot-row petarp-byte-slot-row-3 petarp-byte-remove-cell"><a href="#" class="petarp-byte-remove" id="petarp-byte-remove-3" data-index="3"></a></td>
+                  </tr>
+                  <tr>
+                    <td class="petarp-byte-slot-row petarp-byte-slot-row-4"><label class="petarp-byte-slot-label" id="petarp-byte-slot-label-4"><input type="radio" name="petarp-byte-slot" id="petarp-byte-slot-4" class="petarp-byte-slot" value="4"/>5</label></td>
+                    <td class="petarp-byte-slot-row petarp-byte-slot-row-4"><div class="petarp-byte-address petarp-byte-link" data-index="4" id="petarp-byte-address-4"></div></td>
+                    <td class="petarp-byte-slot-row petarp-byte-slot-row-4"><div class="petarp-byte-value petarp-byte-link" data-index="4" id="petarp-byte-value-4"></div></td>
+                    <td class="petarp-byte-slot-row petarp-byte-slot-row-4 petarp-byte-remove-cell"><a href="#" class="petarp-byte-remove" id="petarp-byte-remove-4" data-index="4"></a></td>
+                  </tr>
+                  <tr>
+                    <td class="petarp-byte-slot-row petarp-byte-slot-row-5"><label class="petarp-byte-slot-label" id="petarp-byte-slot-label-5"><input type="radio" name="petarp-byte-slot" id="petarp-byte-slot-5" class="petarp-byte-slot" value="5"/>6</label></td>
+                    <td class="petarp-byte-slot-row petarp-byte-slot-row-5"><div class="petarp-byte-address petarp-byte-link" data-index="5" id="petarp-byte-address-5"></div></td>
+                    <td class="petarp-byte-slot-row petarp-byte-slot-row-5"><div class="petarp-byte-value petarp-byte-link" data-index="5" id="petarp-byte-value-5"></div></td>
+                    <td class="petarp-byte-slot-row petarp-byte-slot-row-5 petarp-byte-remove-cell"><a href="#" class="petarp-byte-remove" id="petarp-byte-remove-5" data-index="5"></a></td>
+                  </tr>
+                  <tr>
+                    <td class="petarp-byte-slot-row petarp-byte-slot-row-6"><label class="petarp-byte-slot-label" id="petarp-byte-slot-label-6"><input type="radio" name="petarp-byte-slot" id="petarp-byte-slot-6" class="petarp-byte-slot" value="6"/>7</label></td>
+                    <td class="petarp-byte-slot-row petarp-byte-slot-row-6"><div class="petarp-byte-address petarp-byte-link" data-index="6" id="petarp-byte-address-6"></div></td>
+                    <td class="petarp-byte-slot-row petarp-byte-slot-row-6"><div class="petarp-byte-value petarp-byte-link" data-index="6" id="petarp-byte-value-6"></div></td>
+                    <td class="petarp-byte-slot-row petarp-byte-slot-row-6 petarp-byte-remove-cell"><a href="#" class="petarp-byte-remove" id="petarp-byte-remove-6" data-index="6"></a></td>
+                  </tr>
+                  <tr>
+                    <td class="petarp-byte-slot-row petarp-byte-slot-row-7"><label class="petarp-byte-slot-label" id="petarp-byte-slot-label-7"><input type="radio" name="petarp-byte-slot" id="petarp-byte-slot-7" class="petarp-byte-slot" value="7"/>8</label></td>
+                    <td class="petarp-byte-slot-row petarp-byte-slot-row-7"><div class="petarp-byte-address petarp-byte-link" data-index="7" id="petarp-byte-address-7"></div></td>
+                    <td class="petarp-byte-slot-row petarp-byte-slot-row-7"><div class="petarp-byte-value petarp-byte-link" data-index="7" id="petarp-byte-value-7"></div></td>
+                    <td class="petarp-byte-slot-row petarp-byte-slot-row-7 petarp-byte-remove-cell"><a href="#" class="petarp-byte-remove" id="petarp-byte-remove-7" data-index="7"></a></td>
+                  </tr>
+                </table>
+
+                <div id="petarp-save-bytes-error"></div>
+
+                <div class="petarp-byte-editor-buttons">
+                  <button id="petarp-byte-editor-back"><img src="/images/prev.svg"/> Back</button>
+                  <button id="petarp-byte-editor-run">Run</button>
+                  <button id="petarp-byte-editor-save-bytes">Save Bytes</button>
+                </div>
+
+                <div class="byte-editor-instructions">
+                  <p>
+                    Slots can be used to set custom bytes within a PETARP's PRG.
+                    Each slot has an address and a value. New slots become available every 64 days after the token was last transferred.
+                    Once an address has been used in a slot, that address cannot be used in the same slot for other tokens.
+                  </p>
+                  <!--
+                  <p>
+                    Click a slot to select it and then a byte to set it. Nothing is saved until you click 'Save Bytes'.
+                  </p>
+                  -->
+                </div>
+              </div>
+
+
+
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div id="petarp-sid-debug" class="petarp-sid-debug">
+        <div id="sid-holder">
+          <canvas id="sid" height="368" width="600"></canvas>
+
+          <div id="sid-controls">
+            <img id="sid-fullscreen-icon" class="noselect" src="/images/fullscreen.svg"/>
+            <img id="sid-fullscreen-exit-icon" class="noselect" src="/images/fullscreen_exit.svg"/>
+          </div>
+
+        </div>
+        <div class="c64-debug">
+          <div class="petarp-cpu">
+            <canvas id="registers" width="258" height="40"></canvas>
+            <canvas id="disassembly" width="258" height="330"></canvas>
+          </div>
+          <div class="petarp-memory" style="position: relative">
+            <input type="text" spellcheck="false" maxlength="2" id="memory-value" type="text" style="position: absolute; top: 30px; left: 30px; border: 0;padding: 0; display: none; width: 40px; height: 20px"/>
+      
+            <canvas id="memory" height="370" width="482"></canvas><br/>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div id="petarp-gallery" class="content">
+      <a href="#" id="petarp-gallery-back">&lt; Back</a>
+
+      <div id="petarp-gallery-description"></div>
+      <div id="petarp-gallery-sizes">
+        Download Size:
+        <label><input type="radio" name="petarp_gallery_size" id="petarp_gallery_size_1"> 392 x 272</label>
+        <label><input type="radio" name="petarp_gallery_size" id="petarp_gallery_size_2" checked="checked"> 784 x 544</label>
+        <label><input type="radio" name="petarp_gallery_size" id="petarp_gallery_size_4"> 1568 x 1088</label>
+      </div>
+    
+
+      <div id="petarp-gallery-content">
+
+      </div>
+    </div>
+    
+    <div id="petarp-mint" class="content">
+
+      <div class="petarp-mint-minted petarp-mint-section"><div class="petarp-number-minted petarp-mint-number-minted">...</div> out of <div class="petarp-mint-total">64</div> have been minted.</div>
+
+
+      <div id="petarp-mint-mint"></div>
+    </div>
+
+    <div id="petarp-collection" class="content">
+
+
+      <div id="petarp-collection-connect-message" style="display: none">
+        Please <button id="petarp-collection-connect">Connect</button> to view your collection
+      </div>
+
+      <div id="petarp-collection-account"></div>
+
+      <div id="petarp-collection-container" class="petarp-catalog"  style="display: none"></div>
+    </div>
+
+    <div id="petarp-about" class="content">
+      
+      <div>
+        <!--
+        <p>
+          Each PETARP token has associated code which when run on Commodore 64 hardware or an emulator will producte generative audio with PETSCII visuals. 
+          The code is stored on the Ethereum blockchain and therefore should be accessible for as long as the Ethereum blockchain exists.
+        </p>
+        -->
+
+        <h2>PETARP PRGs</h2>
+        <p>
+          The code for each PETARP is a 2048 byte PRG which can be executed on <a href="https://en.wikipedia.org/wiki/Commodore_64" target="_blank">Commodore 64</a> hardware or Commodore 64 emulators such as the x64sc emulator included with <a href="https://vice-emu.sourceforge.io/" target="_blank">VICE</a>.
+          When running, the PRG will produce generative audio with visuals.  The visuals are based on a subset of the <a href="https://vintagecomputerstories.blogspot.com/2021/12/creating-petscii.html" target="_blank">PETSCII</a> character set, a character set created for the Commodore PET computer and then later remade for the Commodore 64.
+        </p>
+        <p>
+          This website contains a Commodore 64 emulator which will display the output of the PRG for the PETARP currently being viewed together with the waveforms for each of the voices of the sound chip, the disassembly of the code being executed and the contents of zero page memory (memory addresses 0 - 255).
+        </p>
+
+        <p>
+          <div class="petarp-about-image">
+            <img src="/images/commodore64.png"/>
+            <div class="petarp-about-image-caption">
+              The <a href="https://en.wikipedia.org/wiki/Commodore_64" target="_blank">Commodore 64</a> 8-bit computer was introduced at CES in January 1982, released in August 1982 and discontinued in April 1994. <a href="https://www.pagetable.com/?p=547" target="_blank">
+              <br/>Estimates of units sold</a> are between 12.5 million and 17 million.
+            </div>
+            <div class="petarp-about-image-attribution">
+              Image Attribution: <a href="https://commons.wikimedia.org/wiki/File:Commodore64.png">Bill Bertram Retouched  by Lichtspiel</a>, <a href="https://creativecommons.org/licenses/by-sa/2.5">CC BY-SA 2.5</a>, via Wikimedia Commons
+            </div>
+          </div>
+        </p>
+
+        <p>
+          A Commodore 64 PRG is a binary file where the first 2 bytes specify a 16 bit address in little endian (least significant byte first) format and the remainder of the file contains the binary data to load into memory at that address.
+        <p>
+
+        <p>
+          PETARP PRGs contain the data for the characters used in the visuals and do not use the Commodore 64 Character, BASIC or Kernal ROMs while running.
+        </p>
+
+        <h2>Obtaining the PRG</h2>
+        <p>
+          The PRG code for a PETARP can be obtained either by using the 'Download PRG' buttons on this website or by executing the 'getTokenPRG' function contained in the <a href="https://etherscan.io/address/0x7d6433b77285cfdb2f91179f73588210fc53d3d8#readContract" target="_blank">PETARP Contract</a>.
+          The PRG for each token should be available for as long as the Ethereum blockchain exists.
+        </p>
+
+        <pre><span style="color: #569cd6">function</span> <span style="color: #dcdcaa">getTokenPRG</span>( <span style="color: #3ac9a2">uint256</span> <span style="color: #7cdcfe">tokenId</span>, <span style="color: #3ac9a2">bool</span> <span style="color: #7cdcfe">unmodified</span> ) <span style="color: #569cd6">public</span> <span style="color: #569cd6">view</span> <span style="color: #569cd6">returns</span> ( <span style="color: #3ac9a2">bytes</span> <span style="color: #569cd6">memory</span> );</pre>
+
+        <p>
+          the getTokenPRG function has two arguments:<br/>
+
+          <table class="petarp-argments-table">
+            <tr>
+              <th><span style="color: #7cdcfe">tokenId</span></th>
+              <td>The id of the PETARP token to fetch the PRG for</td>
+            </tr>
+            <tr>
+              <th><span style="color: #7cdcfe">unmodified</span></th>
+              <td>Over time, an owner of a PETARP may apply changes to it, set 'unmodified' to 1 to obtain the original PRG for the PETARP, or 0 for the modified version</td>
+            </tr>
+          </table>
+        </p>
+
+        <p>
+          The function will return the type 'bytes'.
+          This may take the form of a hex string starting with '0x' where each byte will be represented by two characters in the string and each character will be a hexadecimal number.
+          The high nibble for the byte will come before the low nibble.
+        </p>
+
+        <p>
+          <div class="petarp-about-image">
+
+            <img src="/images/getTokenPRG.png">
+            <div class="petarp-about-image-caption">
+              Executing the 'getTokenPRG' function for PETARP 000 (tokenId 0) on 
+              <a href="https://etherscan.io/address/0x7d6433b77285cfdb2f91179f73588210fc53d3d8#readContract" target="_blank">Etherscan</a>.
+              Only part of the returned bytes are shown in the image.
+            </div>
+          </div>
+        </p>
+
+      </div>
+
+      <div>
+        <h2>Settings / Unlocks</h2>
+
+        <p>
+          Settings can be used to alter the sound or look of a PETARP. 
+          
+          The owner of a PETARP can save these settings to the blockchain so the next time the PETARP is viewed it will be loaded with these settings in place.
+
+          After settings are saved, the PRG, video and gallery images made available from this website will be updated. This can take a few minutes.
+        </p>
+        <p>
+          Some of the settings are locked until certain criteria are met. Once the criteria for a locked setting is met, there is no fee to unlock it apart from the gas fee.
+
+        </p>
+        <p>
+          If a setting is unlocked, it will remain unlocked even if the criteria is no longer met.
+
+        </p>
+
+        <p>
+          The 0 - 9 keys on the keyboard can be used to change values of unlocked settings when viewing the PETARP.
+        </p>
+
+        <table class="petarp-settings-table" cellspacing="0">
+          <tr>
+            <th>&nbsp;</th>
+            <td class="petarp-settings-key">Key</td>
+            <td>Unlock Criteria</td>
+          </tr>
+          <tr>
+            <th>Filter Routing</th>
+            <td class="petarp-settings-key">1 - 3</td>
+            <td>Not locked</td>
+          </tr>
+          <tr>
+            <th>Filter Mode</th>
+            <td class="petarp-settings-key">4</td>
+            <td>Not locked</td>
+          </tr>
+          <tr>
+            <th>Filter Cutoff Hi Byte</th>
+            <td class="petarp-settings-key">5 - 6</td>
+            <td>Not locked</td>
+          </tr>
+          <tr>
+            <th>Color Change</th>
+            <td class="petarp-settings-key">7</td>
+            <td>Unlockable if last transfer > 31 days and own more than 1 PETARP</td>
+          </tr>
+          <tr>
+            <th>Detune Mode</th>
+            <td class="petarp-settings-key">8</td>
+            <td>Unlockable if last transfer > 63 days</td>
+          </tr>
+          <tr>
+            <th>Root Note Change</th>
+            <td class="petarp-settings-key">9</td>
+            <td>Unlockable if last transfer > 127 days</td>
+          </tr>
+          <tr>
+            <th>Journey Mode</th>
+            <td class="petarp-settings-key">0</td>
+            <td>Unlockable if last transfer > 255 days and own more than 3 PETARPs</td>
+          </tr>
+          <tr>
+            <th>Custom Bytes</th>
+            <td>&nbsp;</td>
+            <td>A byte can be changed in the PRG every 64 days up to maximum of 8 bytes</td>
+            
+          </tr>
+        </table>
+
+      </div>
+
+
+      <div>
+        <h2>Commodore 64 Specifications</h2>
+        <p>
+          <div class="petarp-about-image">
+            <img src="/images/c64motherboard.jpg"/>
+            <div class="petarp-about-image-caption">
+              A Commodore 64 Rev A. PAL motherboard (1982)
+            </div>
+            <div class="petarp-about-image-attribution">
+              Image Attribution: 
+              <a href="https://commons.wikimedia.org/wiki/File:C64motherboard.jpg">Bill Bertram</a>, <a href="https://creativecommons.org/licenses/by/2.0">CC BY 2.0</a>, via Wikimedia Commons
+            </div>
+          </div>
+        </p>
+
+        
+        <table class="petarp-c64-specifications">
+          <tr>
+            <th>Release Date</th>
+            <td>August 1982</td>
+          </tr>
+          <tr>
+            <th>CPU</th>
+            <td>MOS Technology 6510/8500 running at 1.023 MHz for NTSC models and 0.985 MHz for PAL Models</td>
+          </tr>
+          <tr>
+            <th>Memory</th>
+            <td>64 KB RAM + 20 KB ROM</td>
+          </tr>
+          <tr>
+            <th>Graphics</th>
+            <td>MOS Technology VIC-II<br/>
+               Max 320×200 resolution, 16 fixed colors, the number of colors onscreen and the resolution will depend on the mode. Modes can be mixed.
+            </td>
+          </tr>
+          <tr>
+            <th>Sound</th>
+            <td>MOS Technology SID 6581/8580<br/>
+               3 Oscillators with ADSR, each capable of producing 4 different waveforms: Triangle, Sawtooth, Pulse, Noise<br/>
+               One filter shared between the oscillators
+            </td>
+          </tr>
+        </table>
+
+
+        Over the time of its production run of 11.5 years there were revisions to components in the Commodore 64, but generally the specifications remained the same.         
+        
+        Software written for the Commodore 64 platform is be able to run on any of the machines produced (with a very small exception of some programs which take advantage of particular undocumented features).
+
+        Despite the hardware remaining largely unchanged, the software produced for the Commodore 64 increased in quality and capability even after the production run had ended.
+
+        
+        Tools, techniques and ideas developed and evolved over time and discoveries were made of what the hardware was capable of.
+
+
+        <h2>Some notes on Home Computers</h2>
+
+        <p>
+          <div class="petarp-about-image">
+            <img src="/images/trinity77.jpg"/>
+            <div class="petarp-about-image-caption">
+              The three computers Byte Magazine referred to as the "1977 Trinity" of home computing: The Commodore PET 2001, the Apple II, and the TRS-80 Model I,.
+            </div>
+            <div class="petarp-about-image-attribution">
+              Image Attribution: 
+              <a href="https://commons.wikimedia.org/wiki/File:Trinity77.jpg">Tim Colegrove</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>, via Wikimedia Commons
+            </div>
+          </div>
+        </p>
+
+
+
+        <p>
+        Before the release of the Commodore 64 in 1982, the idea of home computers intended for non-technical 
+        users had already been introduced in 1977 by the Apple II, Commodore PET and TRS-80 computers. 
+        The companies producing these early computers had the challenge of convincing people 
+        they needed a device in their home that they had never needed before. 
+        Many of the suggestions in advertisements seemed to relate to education, home finance and organizing 
+        cooking recipes.
+        
+        By 1982 home video games had already gained popularity. The first video game console, the Magnavox Odyssey, was released in 1972. 
+        The Atari 2600 was released in September of 1977 and sold in large quantities after the release of the Atari 2600 conversion of Space Invaders in 1980.
+        </p>
+        <p>
+          The success of home computers in the late 70s and early 80s lead to many electronic companies releasing their own home computers.
+          Some companies had no prior connection to the computer industry.
+          Not much thought was given to compatibility between manufacturers. Many of the computers were unsuccessful.
+          Commodore released the Commodore VIC-20 in 1980/81 and it was the embodiment of the philosophy 'computers for the masses not the classes'.
+          It was intended to be more affordable than previous computers and became the first computer of any type to sell a million units.
+        </p>
+
+        <p>
+
+          When the Commodore 64 was released in 1982, the experience and ingenuity of Commodore's engineers 
+          allowed it to produce a computer which was superior to other computers in its price range in terms of graphics and sound.
+          Commodore owned its own semiconductor fabrication facilities, MOS Technology, which allowed it to reduce costs and aggressively price the computers.
+          The Commodore 64 brought home computing to a large number of people.
+        </p>
+
+        <p>
+          The power of computers has increased significantly since the introduction of the Commodore 64. 
+          Computers are no longer limited to the same 16 fixed colours or the 3 voice sound the Commodore 64 possessed.
+          Moore's law, an observation that the number of transistors on an integrated circuit doubles around every two years, has mostly held true since the 70s.
+        </p>
+          
+          
+          <!--
+          Some ideas in computing have failed to catch on or have been superseded. Operating systems get updated, APIs change.
+          -->
+        <p>
+          The popularity of the internet since the 90s has made owning a computer to be more desirable to people who may never have considered owning a computer before.
+          Many people now reaching adulthood have never known life without computers or the internet. 
+          Innovations and ideas which rely on computers have taken place and been adopted to the point they have become part of everyday life for a large number of people.
+          The moment when companies had to convince people of the need for computers seems long gone.
+        </p>
+
+        <p>
+          With progress comes obsolescence. 
+          Recent technological obsolescence can make some some types of media disappear or at least become difficult 
+          to experience again.
+          Operating Commodore 64s still exist in the world and are available on second hand markets. 
+          Commodore 64 emulators for modern operating systems are still actively developed and maintained.
+          Time will most likely lead to more progress in the field of computing, 
+          but the base specification of the Commodore 64 will remain unchanged.
+
+        </p>
+
+        <!--
+
+
+numbering of frames in gallery is wrong
+link to larger size video file
+
+        -->
+        
+
+      </div>
+
+    </div>
+
+
+    <div id="petarp-notfound" class="content">
+      Not Found
+    </div>
+  </div>
+
+  <script src="m64/m64.js?v=0.27"></script>
+  <script src="js/main.js?v=0.27"></script>
+
+</body>
+
+</html>

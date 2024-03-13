@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" href="https://nopsta.com/icon.png">
+
+    
+
+    <script src="https://nopsta.com/js/web3.min.js"></script>
+  </head>
+
+  <body style="background-color: #1a1a1a">
+    <div id="content" style="display: none">
+      <div id="header">
+        <div id="header-content">
+
+          <div id="header-items">
+            <div id="menu-items">
+              <a class="menu-link" href="/">Catalog</a>
+              <div class="menu-link-separator">|</div>
+              <a class="menu-link" href="/oraand/about">About</a>
+              <div class="menu-link-separator">|</div>
+       <!--       
+              <a class="menu-link" href="/oraand/mint">Mint for <span class="desktop-link">0.0256 eth</span></a>
+              <div class="menu-link-separator">|</div>
+              -->
+              <a class="external-link desktop-link" target="_blank" href="https://etherscan.io/address/0xf21ab54111eb5049e42f4794d2724658baa42fc1#readContract">Contract</a>
+              <div class="menu-link-separator desktop-link">|</div>
+              <a class="external-link" target="_blank" href="https://opensea.io/collection/oraand">OpenSea</a>
+
+              <div class="menu-link-separator">|</div>
+              <a class="external-link" target="_blank" href="https://twitter.com/nopsta_">Twitter</a>
+            </div>
+
+            <div>
+              <div id="page-title-holder">
+                <h1 id="page-title">ORAAND </h1>
+                <div id="token-nav-holder" style="display: none">
+                  <a href="#" id="token-prev" class="token-nav"><img src="/images/prev.svg"/></a>
+                  <a href="#" id="token-next" class="token-nav"><img src="/images/next.svg"/></a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="connect-holder">
+            <button id="connect">Connect</button>
+            <button id="switch-to-mainnet" style="display: none">Switch to Mainnet</button>
+            
+            <div id="connect-status"></div>
+          </div>
+
+        </div>
+      </div>
+
+      <div id="notfound">
+
+        Not found
+        
+      </div>
+      <div id="index" class="content">
+
+        <div class="home-content">
+          <h2 class="home-heading">
+            On-chain generative art for the&nbsp;<a href="https://en.wikipedia.org/wiki/Commodore_64" target="_blank">Commodore 64</a>&nbsp;home computer.
+          </h2>
+
+          <p>
+            ORAAND is a series of collectable (via the <a href="https://ethereum.org/en/developers/docs/standards/tokens/erc-721/" target="_blank">ERC 721</a> NFT standard) generative art programs which are executable on Commodore 64 computers and emulators 
+          (such as <a href="https://vice-emu.sourceforge.io/" target="_blank">VICE</a>).
+          Each 2048 byte program (PRG) is generated on the Ethereum blockchain and can be downloaded from this website or the 
+          <a href="https://etherscan.io/address/0xf21ab54111eb5049e42f4794d2724658baa42fc1#code" target="_blank">ORAAND Contract</a> 
+          by calling the '<a target="_blank" href="https://etherscan.io/address/0xf21ab54111eb5049e42f4794d2724658baa42fc1#readContract#F12">getTokenPRGBase64</a>' 
+          function. The PRGs will be available for as long as the Ethereum blockchain exists.
+          The composition of each of the PRGs is determined at time of minting.
+          </p>
+
+          <h2 class="home-heading">
+            On-chain emulator
+          </h2>
+        
+          <p>
+            When viewed on marketplaces such as OpenSea, each program will be displayed using an <a href="https://github.com/nopsta/minimal64" target="_blank">emulator</a> 
+            which is stored on the Ethereum blockchain.
+          </p>
+
+          <div class="home-section">
+            <div>
+              <h2 class="home-minted-info home-heading">Minted&nbsp;<div class="number-minted">...</div>&nbsp;out of 1024</h2>
+             <!-- <p>Mint Price <span class="mint-price">mint price</span> eth</p>-->
+            </div>
+          </div>
+
+
+          <div class="home-section home-about-buttons" id="home-buttons">
+            <a class="button" id="read-more-button" href="/oraand/about">Read More</a>
+            <a class="external-link button" target="_blank" href="https://etherscan.io/address/0xf21ab54111eb5049e42f4794d2724658baa42fc1#code">View Contract</a>
+            <a href="https://opensea.io/collection/oraand" target="_blank" class="button external-link">OpenSea</a>
+          <!--  <a class="button" id="home-mint-now-button" href="/oraand/mint">Mint</a>-->
+          </div>
+    
+    
+        </div>
+        
+
+
+        <div id="catalog" class="catalog"></div>
+
+      </div>
+
+      <div id="token" class="content">
+        <!--
+        <div id="tokenSeed"></div>
+        -->
+        <div>
+          <div id="token-mint-information"></div>
+          <div id="token-ownership-status">ownership status</div>
+          <div id="token-since-last-transfer" style="display: none">since last transfer</div>
+        </div>
+
+
+        <div id="token-description"></div>
+
+        <div id="token-unlock-complete-text"></div>
+
+        <div id="token-parameters" style="display: none"></div>
+
+        <div>
+          <div id="token-mode">
+            <div id="token-mode-heading">
+              <div id="tokenMode">Mode 0</div>
+            </div>
+          </div>
+
+          <div id="token-controls-text">Controls: Spacebar to toggle available modes, arrow keys to navigate layers. Joystick port 2 on real hardware.</div>
+
+
+          <div id="mode-controls-holder">
+            <div id="unlock-buttons">
+              <button id="unlockModes" class="progress-button" ></button>
+              <div id="patchUnlockControls">
+                <button id="unlockPatch" class="progress-button" >Unlock Patch</button>
+              </div>  
+            </div>
+
+            <div id="token-unlock-text"></div>
+
+          </div>  
+
+
+          <div id="token-patch-text">
+            Switch Modes
+          </div>
+
+
+          <div id="token-mode-error"></div>
+        </div>
+
+        <div id="token-view-holder">    
+          <div id="token-canvas-holder">
+
+            <div class="token-holder">
+
+              <canvas id="token-canvas"></canvas>
+
+              <div id="loading-overlay">
+                <div id="loading-message">
+                </div>
+              </div>
+
+              <div id="start-overlay">
+                <div style="cursor: pointer">
+                  Click to start
+                </div>
+              </div>
+
+              <div id="token-controls">
+                <img id="volume-up-icon" class="volume-icon noselect" src="/images/volume_up.svg"/>
+                <img id="volume-down-icon" class="volume-icon noselect" src="/images/volume_down.svg"/>
+                <img id="volume-off-icon" class="volume-icon noselect" src="/images/volume_off.svg"/>
+
+                <div id="volume-bar-holder" class="noselect">
+                  <div id="volume-bar" class="noselect">
+                    <div id="volume-bar-value" class="noselect"></div>
+                    <div id="volume-value" class="noselect"></div>
+                  </div>
+                </div>
+
+                <a href="#" class="token-download-image noselect" id="token-download-image"><img class="noselect" src="/images/download.svg"/> PNG</a>
+                <img id="token-fullscreen-icon" class="noselect" src="/images/fullscreen.svg"/>
+                <img id="token-fullscreen-exit-icon" class="noselect" src="/images/fullscreen_exit.svg"/>
+              </div>
+
+
+
+            </div>
+
+
+          </div>
+
+
+          <div>
+            <div>
+
+              <div id="sid-holder">
+                <canvas id="sid" height="368" width="400"></canvas>
+          
+                <div id="sid-controls">
+                  <img id="sid-fullscreen-icon" class="noselect" src="/images/fullscreen.svg"/>
+                  <img id="sid-fullscreen-exit-icon" class="noselect" src="/images/fullscreen_exit.svg"/>
+                </div>
+              </div>
+
+  
+              <div id="sid-filter-control-selector">
+                <div>
+                  <label><input type="checkbox" id="sid-filter-manual">SID Filter Manual Control</label>
+                </div>
+
+                <div id="sid-manual-controls">
+                  <div class="sid-manual-control">
+                    <div class="sid-manual-control-label">
+                      Freq
+                    </div>
+                    <div class="sid-manual-control-control">
+                      <input type="range" id="sid-filter-value" min="0" max="2047">
+                    </div>
+                  </div>
+              
+                  <div class="sid-manual-control">
+                    <div class="sid-manual-control-label">
+                      Type
+                    </div>
+                    <div class="sid-manual-control-control">
+                      <label><input id="sid-filter-type-low" type="checkbox">Low Pass</label>
+                      <label><input id="sid-filter-type-band" type="checkbox">Band Pass</label>
+                      <label><input id="sid-filter-type-high" type="checkbox">High Pass</label>
+                    </div>
+                  </div>
+                  
+                  <div class="sid-manual-control">
+                    <div class="sid-manual-control-label">
+                      Voice
+                    </div>  
+                    <div class="sid-manual-control-control">
+                      <label><input id="sid-filter-voice-1" type="checkbox">Voice 1</label>
+                      <label><input id="sid-filter-voice-2" type="checkbox">Voice 2</label>
+                      <label><input id="sid-filter-voice-3" type="checkbox">Voice 3</label>
+                    </div>
+                   </div> 
+                </div>
+              </div>
+   <!----> 
+
+            </div>
+        
+          </div>
+        </div>
+
+
+        <div class="charset-cpu-memory" id="charset-cpu-memory">
+          <div id="charset-holder">
+            <canvas id="charset" height="54" width="400"></canvas>
+          </div>
+
+          <div class="cpu-memory">
+            <div class="cpu">
+              <canvas id="registers" width="258" height="40"></canvas>
+              <canvas id="disassembly" width="258" height="445"></canvas>
+              <div class="disassembly-controls">
+                <button id="m64-play" title="Play/Pause">
+                  <img class="pause-icon" id="m64-play-pause-icon" src="images/pause.svg"/>
+                  <img class="play-icon" id="m64-play-play-icon" style="display: none" src="images/play.svg"/>
+                </button>
+                <button id="m64-step" title="Step" disabled="disabled">
+                  <img class="step-icon" src="images/step.svg"/>
+                </button>
+              </div>
+            </div>
+            <div>
+              <canvas id="cube-memory" height="220" width="600" style="background-color: #000000"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div class="cpu-sid" id="cpu-sid">
+          <div class="cpu-2">
+            <canvas id="registers-2" width="258" height="40"></canvas>
+            <canvas id="disassembly-2" width="258" height="445"></canvas>
+          </div>
+          <div>
+            <div id="sid-holder-2">
+              <canvas id="sid-2" height="368" width="400"></canvas>
+        
+              <div id="sid-controls-2">
+                <img id="sid-fullscreen-icon-2" class="noselect" src="/images/fullscreen.svg"/>
+                <img id="sid-fullscreen-exit-icon-2" class="noselect" src="/images/fullscreen_exit.svg"/>
+              </div>
+            </div>
+
+
+              
+            <div id="sid-filter-control-selector-2">
+              <div>
+                <label><input type="checkbox" id="sid-filter-manual-2">SID Filter Manual Control</label>
+              </div>
+
+              <div id="sid-manual-controls-2">
+                <div class="sid-manual-control">
+                  <div class="sid-manual-control-label">
+                    Freq
+                  </div>
+                  <div class="sid-manual-control-control">
+                    <input type="range" id="sid-filter-value-2" min="0" max="2047">
+                  </div>
+                </div>
+            
+                <div class="sid-manual-control">
+                  <div class="sid-manual-control-label">
+                    Type
+                  </div>
+                  <div class="sid-manual-control-control">
+                    <label><input id="sid-filter-type-low-2" type="checkbox">Low Pass</label>
+                    <label><input id="sid-filter-type-band-2" type="checkbox">Band Pass</label>
+                    <label><input id="sid-filter-type-high-2" type="checkbox">High Pass</label>
+                  </div>
+                </div>
+                
+                <div class="sid-manual-control">
+                  <div class="sid-manual-control-label">
+                    Voice
+                  </div>  
+                  <div class="sid-manual-control-control">
+                    <label><input id="sid-filter-voice-1-2" type="checkbox">Voice 1</label>
+                    <label><input id="sid-filter-voice-2-2" type="checkbox">Voice 2</label>
+                    <label><input id="sid-filter-voice-3-2" type="checkbox">Voice 3</label>
+                  </div>
+                  </div> 
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div id="download">
+          <h3>Download PRG</h3>
+
+          <div id="download-not-connected">
+            <p>ORAAND PRGs are generated on the Ethereum network. You need to be connected to the network to be able to download PRGS</p>
+
+            <p>Downloading PRGS is a free gasless transaction</p>
+
+            <p>
+              You can also download Base64 encoded ORAAND PRGs by calling the getTokenPRGBase64 function directly from the 
+              <a class="external-link" target="_blank" href="https://etherscan.io/address/0xf21ab54111eb5049e42f4794d2724658baa42fc1#readContract#F12">ORAAND Contract on Etherscan.</a>
+              You do not need to be connected to the Ethereum network (or have a wallet/account) to call this function on the Etherscan website.
+              See the <a href="oraand/about" class="internal-link">About page</a> for a description of the function's parameters.
+            </p>
+
+            <button id="download-connect">Connect</button>
+            <button id="download switch-to-mainnet" style="display: none">Switch to Mainnet</button>
+
+          </div>
+
+          <div id="download-connected">
+
+            <p>
+              ORAAND PRGs are generated on the Ethereum network.
+
+              Downloading a PRG is a free gasless transaction.
+            </p>
+
+            <p>
+              You can also download Base64 encoded ORAAND PRGs by calling the getTokenPRGBase64 function directly from the 
+              <a class="external-link" target="_blank" href="https://etherscan.io/address/0xf21ab54111eb5049e42f4794d2724658baa42fc1#readContract">ORAAND Contract</a>
+              See the <a href="oraand/about"  class="internal-link">About page</a> for a description of the function's parameters.
+            </p>
+
+
+            <div class="download-row">
+              <div class="download-label">
+                Region
+              </div>
+              <div class="download-value">
+                <label><input type="radio" checked="checked" id="prgPALNTSC_PAL" name="prgPALNTSC">PAL</label>
+                <label><input type="radio" id="prgPALNTSC_NTSC" name="prgPALNTSC">NTSC</label>
+              </div>
+            </div>
+
+            <div class="download-row" id="download-version" style="display: none">
+              <div class="download-label">Version</div>
+              <div class="download-value">
+                <label><input type="radio" checked="checked" id="prgVersion_standard" name="prgVersion">Standard</label>
+                <label><input type="radio" id="prgVersion_patched" name="prgVersion">Patched</label>
+              </div>
+            </div>
+
+            <div class="download-row">
+              <div class="download-label">Filter Settings</div>
+              <div class="download-value">
+                <label><input type="radio" checked="checked" id="prgFilter_normal" name="prgFilter">Normal</label>
+                <label><input type="radio" id="prgFilter_disabled" name="prgFilter">Filter Disabled</label>
+                <label><input type="radio" id="prgFilter_custom" name="prgFilter">Custom</label>
+              </div>
+            </div>
+
+            <div id="download-custom-settings" style="display: none">
+              <div class="download-row">
+                <div class="download-label">Resonance</div>
+                <div class="download-value">
+                  <select id="prgDownloadResonance">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">a</option>
+                    <option value="11">b</option>
+                    <option value="12">c</option>
+                    <option value="13">d</option>
+                    <option value="14">e</option>
+                    <option value="15" selected="selected">f</option>
+                  </select>
+                </div>
+              </div>
+              <div class="download-row">
+                <div class="download-label">Routing</div>
+                <div class="download-value">
+                  <label><input type="checkbox" id="prgDownloadFilter1">Voice 1</label>
+                  <label><input type="checkbox" id="prgDownloadFilter2">Voice 2</label>
+                  <label><input type="checkbox" id="prgDownloadFilter3" checked="checked">Voice 3</label>
+                </div>
+              </div>
+              <div class="download-row">
+                <div class="download-label">Type</div>
+                <div class="download-value">
+                  <label><input type="checkbox" id="prgDownloadLowpass" checked="checked">Low pass</label>
+                  <label><input type="checkbox" id="prgDownloadBandpass">Band pass</label>
+                  <label><input type="checkbox" id="prgDownloadHighpass">High pass</label>          
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <button id="downloadPRG">Download</button>
+            </div>
+          </div>
+        </div>
+
+
+
+
+        <br/><br/>
+
+        <div id="download-video">
+          <h3>Download Video</h3>
+
+          <div id="video-download-message">Video downloads are available when mode 1 has been unlocked. More videos become available as more modes are unlocked.</div>
+
+          <div class="download-row" id="download-video-version" style="display: none">
+            <div class="download-label">Version</div>
+            <div class="download-value" id="download-video-versions">
+              <label><input type="radio" checked="checked" id="video_version_standard" value="standard" name="video_version">Standard</label>
+              <label><input type="radio" id="video_version_patched" value="patched" name="video_version">Patched</label>
+            </div>
+          </div>
+
+          <div class="download-row" id="download-mode" style="display: none">
+            <div class="download-label">Mode</div>
+            <div class="download-value" id="download-modes">
+            </div>
+          </div>
+          <div class="download-row" id="download-aspect" style="display: none">
+            <div class="download-label">Aspect Ratio</div>
+            <div class="download-value">
+              <label><input type="radio" checked="checked" id="video_aspect_original" name="video_aspect">Original</label>
+              <label><input type="radio" id="video_aspect_square" name="video_aspect">Square</label>
+            </div>
+          </div>
+          <div id="download-video-button-holder">
+            <button id="downloadVideo">Download</button>
+          </div>
+
+        </div>
+
+
+        <div id="token-settings">
+          <h3>Settings</h3>
+
+          <!--
+          <input type="number" value="0" min="0" max="1" id="tokenDefaultVerion"/>
+          <button id="tokenSetDefaultVersion">Set Default Version</button>
+          -->
+          <div class="token-settings-mode-default">
+            <input type="number" id="mode-default" value="0" min="0" max="3" size="2">
+            <button id="set-mode-default">Set Default Mode</button>
+          </div>
+        </div>
+
+      </div>
+
+      <div id="collection" class="content">
+        <div id="collection-connect-message" style="display: none">
+          Please <button id="collection-connect">Connect</button> to view your collection
+        </div>
+  
+        <div id="collection-account"></div>
+  
+        <div id="collection-container" style="display: none"></div>
+      </div>
+
+      <div id="about" class="content">
+        <h2>About</h2>
+
+        <p>
+          The Commodore 64 home computer was released for sale in August of 1982 and its production ceased in 1994. 
+          It has long held the Guinness World Record for the 
+          <a href="https://www.guinnessworldrecords.com/world-records/72695-most-computer-sales" target="_blank">best selling  single model of desktop computer.</a>
+            Over the course of its production run, the specifications of the machine remained largely the same:
+            an approximately 1Mhz 6510 8-bit CPU, a fixed 16 color palette, 3 voice sound, 64 KB RAM.
+            The Commodore 64 machines released in 1982 were just as capable of running the same software as the machines released 12 years later in 1994.
+            Though the hardware specification remained static, the quality of the software improved greatly over time
+            and continued to improve even after production of the machine had ceased.
+            Tools and techniques were developed and refined, and new discoveries were made about the capabilities of the hardware.
+            The hardware specification was fixed in 1982, but the concepts of time, ideas and innovation changed what the machine would do.
+        </p>
+        <p>
+          <div class="about-image">
+            <img src="/images/commodore64.png"/>
+            <div class="about-image-caption">
+              The <a href="https://en.wikipedia.org/wiki/Commodore_64" target="_blank">Commodore 64</a> 8-bit computer was introduced at CES in January 1982, released in August 1982 and discontinued in April 1994. <a href="https://www.pagetable.com/?p=547" target="_blank">
+              <br/>Estimates of units sold</a> are between 12.5 million and 17 million.
+            </div>
+            <div class="about-image-attribution">
+              Image Attribution: <a href="https://commons.wikimedia.org/wiki/File:Commodore64.png">Bill Bertram, Retouched  by Lichtspiel</a>, <a href="https://creativecommons.org/licenses/by-sa/2.5">CC BY-SA 2.5</a>, via Wikimedia Commons
+            </div>
+          </div>
+        </p>
+
+        <h2>ORAAND - Onchain Generative Art Programs for the Commodore 64</h2>
+        <p> 
+          The code for each ORAAND is a 2048 byte program (PRG) which can be run on 
+          <a href="https://en.wikipedia.org/wiki/Commodore_64" target="_blank">Commodore 64</a> hardware or Commodore 64 emulators such 
+          as this website or the x64sc emulator included with <a href="https://vice-emu.sourceforge.io/" target="_blank">VICE</a>. An onchain emulator is used to
+          display the PRGS on marketplaces such as OpenSea.
+          When running, the PRG will produce generative audio with visuals. Each ORAAND PRG is generated on the Ethereum blockchain and has unlockable modes.
+           More modes become available to unlock the longer the token is held for.
+        </p>
+        <p>
+          View <a href="oraand" class="internal-link">the catalog</a> of ORAAND PRGs minted so far.
+        </p>
+        <h3>The PRG Format</h3>
+        <p>
+          A Commodore 64 PRG is a binary file where the first 2 bytes specify a 16 bit address  
+          and the remainder of the file contains the binary data to load into memory at that address.
+          The following image shows the complete 2048 bytes in hexadecimal format for the PRG for ORAAND 0. The first two bytes '01' and '08' 
+          indicate the PRG is to be loaded into memory at hexadecimal address '0x0801'.
+        <p>
+        
+        <div class="about-image">
+          <canvas id="about-prg-data" style="background-color: #000"></canvas>
+          <div class="about-image-caption">
+            The 2048 byte PRG for ORAAND 0, each byte is shown as a 2 digit hexadecimal number.<br/>The first two bytes indicate the PRG is to be loaded at 
+            address 0x0801
+          </div>
+        </div>
+
+        <p>The following image shows the location of the PRG as a white block within the Commodore 64's 64KB of RAM (addresses 0x0000 - 0xffff)</p>
+        <div class="about-image">
+          <canvas id="about-memory" style="background-color: #000"></canvas>
+          <div class="about-image-caption">
+            The Commodore 64's 64KB of RAM. ORAAND programs are loaded into the 2KB area of RAM from 0x0801 to 0x0fff.
+          </div>
+
+        </div>
+        <h3>Standard Character Screen Mode</h3>
+        <p>
+          ORAAND PRGs use the Commodore 64's 'Standard Character Screen Mode' where the screen is divided into a 40x25 grid of 8x8 pixel cells.          
+          This mode has a resolution of 320x200 (plus the border).
+          In Standard Character Mode, each 8x8 pixel cell can display one of 256 custom defined characters. Each cell can have its own foreground color and 
+          the background color is shared between all cells. The colors are set to one of colors from the Commodore 64's predefined 16 color palette.
+          ORAAND PRGs use 43 custom defined characters, the foreground color is the same for all cells. The following image shows the 43 custom defined characters
+          used for ORAAND 0.          
+        </p>
+
+        <div class="about-image">
+          <img src="/images/oraand0-charset.png"/>
+          <div class="about-image-caption">
+            The 43 8x8 pixel characters used for ORAAND 0
+          </div>
+        </div>
+
+        <h3>6510 Assembly</h3>
+        <p>
+          ORAAND PRGs were written in 6510 assembly language. 
+          In 6510 assembly language, each line is an instruction telling the Commodore 64's 6510 processor what to do. 
+          The instruction may also have an operand which can specify a byte value or a memory address for the processor to operate on.
+          For example, 'LDA $1000' will tell the processor to load the byte stored at address 0x1000 in memory into the processor's accumulator register.
+          'ORA #$01' will tell the processor to perform a logical 'OR' operation between the byte in the accumulator register and the byte value 0x01 and store the result 
+          back in the accumulator. 'STA $1000' will tell the processor to store the byte that is currently in the accumulator register at the address 0x1000.
+          Assembly language programs are converted into a sequence of bytes by an assembler. 
+          The ORAAND solidity contract combines these sequences of bytes to return the PRG for each token.
+        </p>
+
+        <div class="about-image">
+          <img src="/images/oraand-instructions.png"/>
+          <div class="about-image-caption">
+            An example of 6510 assembly.<br/>The instruction is in purple on the right of each line with the instruction's operand in green. 
+            The bytes representing the instruction and its operand are in white in the middle
+            and the address where the instruction is located in memory is in grey on the left.
+          </div>
+        </div>
+
+        <h3>Display of ORAAND PRGs on this Website</h3>
+        <p>
+          This website contains an <a href="https://github.com/nopsta/minimal64" target="_blank">emulator</a> which will display the output of the PRG for 
+          the ORAAND currently being viewed together 
+          with the waveforms for each of the voices of the sound chip, the character set used to generate the graphics,
+          the disassembly of the code being executed and the contents of memory where the shape being displayed is defined.
+          A copy of this emulator without the Kernal, Character or BASIC ROMs is on the Ethereum blockchain and is used to display each token on platforms such as OpenSea
+          which use the tokenURI method of the ERC 721 standard to display tokens.
+        </p>
+        <p>
+          After an ORAAND is minted, the webserver will download a copy of the new token's PRG from the ORAAND contract.
+          This is the PRG which is displayed if someone visits this website without connecting a wallet.
+          If someone visits this website with the MetaMask wallet extension installed, a token's page will obtain the PRG directly from the contract.
+          No gas fees are involved.
+        </p>
+
+        <h2>On Chain Emulation</h2>
+        <p>
+          When viewed on websites such as OpenSea, each ORAAND will be displayed via an on chain emulator, <a target="_blank" href="https://github.com/nopsta/minimal64">Minimal 64</a>.
+          Minimal 64 is a small emulator capable of running Commodore 64 programs which do not use the Kernal, BASIC or Character ROMs. It contains its own custom Kernal ROM
+          which can be used to start programs. The intention of Minimal 64 is that if a program runs on it, that program should also be able to be run on a real Commodore 64.
+        </p>
+
+        <p>
+          Marketplaces such as OpenSea will call a contract's tokenURI method to obtain metadata about a token.
+          The tokenURI method can return a URL where the metadata can be found, or as in the case of ORAAND, returns the metadata directly. 
+          Each ORAAND token's metadata includes an 'animation_url' attribute. The value for this attribute is a complete HTML page
+          containing the token's PRG data and the emulator to display the prg within the HTML page.
+        </p>
+
+        <p>
+          At present, the static images displayed for each token are generated off-chain and stored on this server. Once all the tokens are minted,
+          a storage solution such as IPFS will be looked at for the static images.
+        </p>
+
+        <p>
+          The contract used to create the output for an ORAAND token's metadata is <a href="https://etherscan.io/address/0x40307D57da1BEdF31967dC9fa186c1026b496AB2#code" target="_blank">here</a>
+        </p>
+
+        <h2>ORAAND Modes</h2>
+        <p>
+          Each ORAAND has modes which may be unlocked over time by its owner.
+          To unlock a mode, the token must be held by a wallet for a certain amount of time. If the token is sold or transferred, the time counter will reset. 
+          Unlocking modes is free, but will use a small amount of gas for the transaction.
+        </p>
+        <p>
+          Once a mode is unlocked, the spacebar can be used on this website to switch between modes. If the PRG is downloaded after unlocking modes, the button on a 
+          joystick in port 2 can be used to switch modes.
+        </p>
+        <p>
+          If you own a token and have unlocked multiple modes, a section will appear at the bottom of 
+          the token's page which will allow you to set default mode the token will displayed in. Again, this
+          is free, but will require a small amount of gas for the transaction.
+        </p>
+
+        <h2>Other Controls</h2>
+        <p>
+          When viewing an ORAAND, you can use the left/right cursor keys on a keyboard
+          to rotate the ORAAND. The up/down cursor keys can be used to show/hide layers.
+          If running on real hardware, a joystick in port 2 can be used.
+        </p>
+
+        <div>
+          <h2>Downloading ORAAND PRGs</h2>
+          <p>
+            Each ORAAND PRG is generated by Solidity code running on the Ethereum blockchain and can be returned in the form of a Base64 encoded string
+            by executing the function <a href="https://etherscan.io/address/0xf21ab54111eb5049e42f4794d2724658baa42fc1#readContract#F12" target="_blank">getTokenPRGBase64</a>. 
+            Decoding the Base64 string will produce the binary PRG which can then be run on Commodore 64 computers. 
+            Running this function from the Etherscan website does not require you to have an Ethereum account/wallet.
+          </p>
+
+          <p>
+            getTokenPRGBase64 accepts parameters which will determine if the PAL or NTSC version of the PRG is returned
+            as well as settings the returned PRG should use to control the Commodore 64's audio filter.
+          </p>
+
+          <p>
+            Parameters
+            <table class="contract-function-parameters">
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+              </tr>
+              <tr>
+                <td>tokenId</td>
+                <td>uint256</td>
+                <td>The id of the token to obtain the PRG for</td>
+              </tr>
+              <tr>
+                <td>pal</td>
+                <td>bool</td>
+                <td>
+                  Which model the PRG should be for<br/>
+                  'true' for the PAL version, 'false' for the NTSC version<br/>
+                  Most emulators use PAL by default
+                </td>                
+              </tr>
+              <tr>
+                <td>filterResonanceRouting</td>
+                <td>uint8</td>
+                <td>
+                  This parameter will determine the resonance of the audio filter (0-15)
+                  in the Commodore 64
+                  and which voices (1-3) will pass through the filter.<br/>
+                  <strong>Pass a value of 0 to use the default values</strong>, otherwise this should be a byte value
+                  in the format the SID regsiter $d417 expects:<br/>
+                  bit 0:    set to 1 to filter voice 1<br/>
+                  bit 1:    set to 1 to filter voice 2<br/>
+                  bit 2:    set to 1 to filter voice 3<br/>
+                  bit 3:    set to 1 to filter external voice (not used)<br/>
+                  bits 4-7: filter resonance (0-15)<br/>
+                </td>                
+              </tr>
+              <tr>
+                <td>filterModeVolume</td>
+                <td>uint8</td>
+                <td>
+                  This parameter will determine the output volume (0-15)
+                  and the type of filtering the audio filter in the Commodore 64 should use
+                  <br/>
+                  Pass a value of 0 to use the default values, otherwise this should be a byte value
+                  in the format the SID regsiter $d418 expects:<br/>
+                  bits 0-3: volume (0-15)<br/>
+                  bit 4:    set to 1 to enable the low pass filter<br/>
+                  bit 5:    set to 1 to enable the band pass filter<br/>
+                  bit 6:    set to 1 to enable the high pass filter<br/>
+                  bit 7:    set to 1 to disable voice 3                </td>                
+              </tr>
+            </table>
+
+            The filters in some older model C64s may produce excessive distortion. 
+            If you intend to run the PRG on one of these models, a value of 240 for filterResonanceRouting may produce a better output than
+            the default value.
+          </p>
+        </div>
+
+
+        <div>
+          <h2>Commodore 64 Specifications</h2>
+          <p>
+            <div class="about-image">
+              <img src="/images/c64motherboard.jpg"/>
+              <div class="about-image-caption">
+                A Commodore 64 Rev A. PAL motherboard (1982)
+              </div>
+              <div class="about-image-attribution">
+                Image Attribution: 
+                <a href="https://commons.wikimedia.org/wiki/File:C64motherboard.jpg">Bill Bertram</a>, <a href="https://creativecommons.org/licenses/by/2.0">CC BY 2.0</a>, via Wikimedia Commons
+              </div>
+            </div>
+          </p>
+    
+          
+          <table class="c64-specifications">
+            <tr>
+              <th>Release Date</th>
+              <td>August 1982</td>
+            </tr>
+            <tr>
+              <th>CPU</th>
+              <td>MOS Technology 6510/8500 running at 1.023 MHz for NTSC models and 0.985 MHz for PAL Models</td>
+            </tr>
+            <tr>
+              <th>Memory</th>
+              <td>64 KB RAM + 20 KB ROM</td>
+            </tr>
+            <tr>
+              <th>Graphics</th>
+              <td>MOS Technology VIC-II<br/>
+                  Max 320×200 resolution, 16 fixed colors, the number of colors onscreen and the resolution will depend on the screen mode. Modes can be mixed.
+              </td>
+            </tr>
+            <tr>
+              <th>Sound</th>
+              <td>MOS Technology SID 6581/8580<br/>
+                  3 Oscillators with ADSR, each capable of producing 4 different waveforms: Triangle, Sawtooth, Pulse, Noise<br/>
+                  One filter shared between the oscillators
+              </td>
+            </tr>
+          </table>
+
+          <h2>Some notes on Home Computers</h2>
+
+          <p>
+            <div class="about-image">
+              <img src="/images/trinity77.jpg"/>
+              <div class="about-image-caption">
+                The three computers Byte Magazine referred to as the "1977 Trinity" of home computing: The Commodore PET 2001, the Apple II, and the TRS-80 Model I.
+              </div>
+              <div class="about-image-attribution">
+                Image Attribution: 
+                <a href="https://commons.wikimedia.org/wiki/File:Trinity77.jpg">Tim Colegrove</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>, via Wikimedia Commons
+              </div>
+            </div>
+          </p>
+          <p>
+            In 1995 <a href="https://www.youtube.com/watch?v=fs-YpQj88ew" target="_blank">Bill Gates appeared on the Late Show with David Letterman</a> 
+            to explain the Internet.
+            Before saying it's easy to criticise something you don't understand and joking about how radios and tape recorders 
+            had already solved the problem of listening to baseball games on demand, host David Letterman asked Bill Gates "Why don't I have a computer?". 
+            Bill Gates answer was they still needed to find an application for him.
+            The Commodore 64 was released 13 years before this interview.           
+          </p>
+  
+
+          <h3>The Challenge of Selling the Concept of a Home Computer</h3>
+          <p>
+          Before the Commodore 64 was released in 1982, the idea of home computers intended for non-technical 
+          users had already been introduced in 1977 by the Apple II, Commodore PET and TRS-80 computers. 
+          The companies producing these early computers had the challenge of convincing people 
+          they needed a device in their home that they had never needed before. 
+          Many of the suggestions in advertisements seemed to relate to education, home finance and organizing 
+          cooking recipes.
+          
+          By 1982 home video games had already gained popularity. The first video game console, the Magnavox Odyssey, was released in 1972. 
+          The Atari 2600 was released in September of 1977 and sold in large quantities after the release of the Atari 2600 conversion of Space Invaders in 1980.
+          </p>
+
+          <h3>The Goldrush</h3>
+
+          <p>
+            The success of home computers in the late 70s and early 80s lead to many electronic companies releasing their own home computers.
+            Some companies had no prior connection to the computer industry.
+            Not much thought was given to compatibility between manufacturers. Many of the computers were unsuccessful.
+            Commodore released the Commodore VIC-20 in 1980/81 and it was the embodiment of the philosophy 'computers for the masses not the classes'.
+            It was intended to be more affordable than previous computers and became the first computer of any type to sell a million units.
+          </p>
+
+          <h3>Experience and Refinement</h3>
+
+          <p>
+            When the Commodore 64 was released in 1982, the experience and ingenuity of Commodore's engineers 
+            allowed it to produce a computer which was superior to other computers in its price range in terms of graphics and sound.
+            Commodore owned its own semiconductor fabrication facilities, MOS Technology, which allowed it to reduce costs and aggressively price the computers.
+            The Commodore 64 brought home computing to a large number of people.
+          </p>
+
+          <h3>Unfulfilled Promise and Downturn</h3>
+          <p>
+            As more home computers entered the market in the 80s it became apparent that many of the promises of this emerging technology hadn't come into fruition.
+            Hardly anyone was using their computer for home finances or managing cooking recipes. The most common use was for playing video games, 
+            or the computer had been put away into a cupboard.
+            One <a href="https://wayback.archive-it.org/5902/20150629134551/http://www.nsf.gov/statistics/nsf01313/patterns.htm" target="_blank">1985 study</a>
+             of several thousand US households found that during a typical week, 40% of all adult computer owners did not use their computer at all.
+             
+             In 1984 the designer of the TRS-80 Model I, Steve Leininger, 
+             <a href="https://books.google.com.au/books?id=yS4EAAAAMBAJ&pg=PA66&redir_esc=y#v=onepage&q&f=false" target="_blank">stated</a> 
+             the industry hadn't found a compelling reason to buy a computer for the home besides Word processing.
+
+             The founder of Compute!, a popular home computing magazine, 
+             <a href="https://archive.org/details/1986-01-computegazette/page/n7/mode/2up?view=theater" target="_blank">stated in 1986</a>  
+             "our market dropped from 300 percent growth per year to 20 percent" when writing about the demise of two of Compute!'s magazine competitors.
+
+             With the downturn and the aggressive pricing of Commodore, many of the companies which had sprung up to catch the home computing boom went bankrupt 
+             or ceased their production of computers.
+          </p>
+
+          <h3>Building out of a Downturn</h3>
+
+          <p>
+            The power of computers has increased significantly since the introduction of the Commodore 64. 
+            Computers are no longer limited to the same 16 fixed colors or the 3 voice sound the Commodore 64 possessed.
+            Moore's law, an observation that the number of transistors on an integrated circuit doubles around every two years, has mostly held true since the 70s.
+          </p>
+            
+            
+            <!--
+            Some ideas in computing have failed to catch on or have been superseded. Operating systems get updated, APIs change.
+            -->
+          <h3>Killer App</h3>
+          <p>
+            The popularity of the internet since the 90s has made owning a computer to be more desirable to people who may never have considered owning a computer before.
+            Many people now reaching adulthood have never known life without computers or the internet. 
+            Innovations and ideas which rely on computers have taken place and been adopted to the point they have become part of everyday life for a large number of people.
+            The moment when companies had to convince people of the need for computers seems long gone.
+          </p>
+
+          <h3>Time, Progress and Obsolescence</h3>
+
+          <p>
+            With progress comes obsolescence. 
+            Recent technological obsolescence can make some some types of media disappear or at least become difficult 
+            to experience again.
+            Operating Commodore 64s still exist in the world and are available on second hand markets. 
+            Commodore 64 emulators for modern operating systems are still actively developed and maintained.
+            Time will most likely lead to more progress in the field of computing, 
+            but the base 1982 specification of the Commodore 64 will remain unchanged.
+
+          </p>
+    
+            <!--
+    
+    
+    numbering of frames in gallery is wrong
+    link to larger size video file
+    
+            -->
+            
+    
+        </div>        
+
+      </div>
+
+
+      <div id="mint" class="content">
+
+        <div class="mint-minted mint-section"><div class="number-minted token-mint-number-minted">...</div> out of <div class="token-mint-total">1024</div> have been minted so far.</div>
+
+        <div class="mint-section">
+          <p>A token's parameters will be set at the time of minting.</p>
+
+          <p>
+          After minting, the webserver will call the contract's 'getTokenPRGBase64' function with the new token's id
+          and use the returned PRG to generate the token's Image. Your web browser will be redirected to the page for the token
+          where the token's PRG will be obtained from the Ethereum blockchain.
+          </p>
+        </div>
+
+        <div class="mint-section">
+          <!-- 
+          The mint price for token 0 - 127 is 0.00256 ETH each, the mint price for token 128 - 255 is 0.00512 ETH each.
+
+          -->
+        </div>
+
+        <div class="mint-mint-price mint-section">
+          The current mint price is <div class="mint-price">...</div> ETH + gas
+        </div>
+
+        <div id="browser-check-message">
+
+        </div>
+
+        <div id="mint-connect">
+          <div class="mint-section mint-notice">Connect with MetaMask to Mint</div>
+          <button id="mint-connect">Connect</button>
+        </div>
+
+        <div id="mint-switch" style="display: none">
+          <div class="mint-section mint-notice">You need to be connected to the Ethereum Mainnet to mint.</div>
+
+          <button id="mint-switch">Switch to Mainnet</button>
+        </div>
+
+        <div id="mint-mint">
+
+          <div class="mint-section">
+            You are connected with account <div id="mint-account"></div>
+          </div>
+
+          <div class="mint-section mint-balance" id="mint-account-balance">
+          </div>
+
+          <div>
+            <button id="mint-button" class="progress-button">Mint New Token 0.0256 eth</button>        
+          </div>
+
+          <div id="mint-status"></div>
+
+          <div id="mint-result"></div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <script src="m64/m64.js?v=0.218"></script>
+    <script src="js/main.js?v=0.218"></script>
+
+  </body>
+
+</html>
