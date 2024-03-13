@@ -26,12 +26,13 @@ app.get("/a/petarp/versions", (_, res) =>
     ],
   })
 );
+/*
 app.get("/a/petarp/:tokenId", async (req, res) => {
-  // TODO: replace with on-chain calls
   const response = await fetch('https://nopsta.com/a/petarp/' + req.params.tokenId);
   const data = await response.json();
   return res.json(data);
 });
+*/
 app.get("/a/petarp/:tokenId/video", async (req, res) => {
   return res.json({
     "value": {
