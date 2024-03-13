@@ -11,7 +11,7 @@ replace_text() {
 }
 
 # Define the root directory to start the search
-root_directory="."
+root_directory="nopsta.com"
 
 # Call the function with different search and replace values
 replace_text "$root_directory" "https://nopsta.com/js/web3.min.js" "/js/web3.min.js"
