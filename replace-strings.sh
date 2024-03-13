@@ -18,3 +18,4 @@ replace_text "$root_directory" "https://nopsta.com/js/web3.min.js" "/js/web3.min
 replace_text "$root_directory" "https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js" "https://cdn.jsdelivr.net/npm/web3@4.6.0/dist/web3.min.js"
 replace_text "$root_directory" "https://nopsta.com/icon.png" "/icon.png"
 replace_text "$root_directory" "https://nopsta.com/oraand/t/" "/oraand/t/"
+replace_text "$root_directory" "https://nopsta.com/a/petarp/" "/a/petarp/"
