@@ -30,3 +30,7 @@ Login to Vercel
 Run dev:
 
     npm run dev
+
+Open in browser:
+
+    http://localhost:3000
